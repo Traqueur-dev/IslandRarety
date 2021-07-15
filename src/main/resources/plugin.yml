@@ -1,0 +1,8 @@
+name: IslandRarety
+version: ${project.version}
+main: fr.traqueur.smeltblock.rarety.IslandRarety
+api-version: 1.16
+prefix: IslandRarety
+depend: [ SuperiorSkyblock2, GenCubes ]
+authors: [ Traqueur_ ]
+description: Using this plugin for save precious items
