@@ -1,15 +1,12 @@
 package fr.traqueur.smeltblock.rarety.modules.rarety;
 
-import fr.traqueur.smeltblock.rarety.api.commands.annotations.Command;
-import fr.traqueur.smeltblock.rarety.api.commands.annotations.Completer;
-import fr.traqueur.smeltblock.rarety.modules.profiles.ProfileManager;
-import fr.traqueur.smeltblock.rarety.modules.profiles.clazz.Profile;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
-
 import fr.traqueur.smeltblock.rarety.api.commands.CommandArgs;
 import fr.traqueur.smeltblock.rarety.api.commands.ICommand;
+import fr.traqueur.smeltblock.rarety.api.commands.annotations.Command;
 import fr.traqueur.smeltblock.rarety.api.utils.Utils;
+import fr.traqueur.smeltblock.rarety.modules.profiles.ProfileManager;
+import fr.traqueur.smeltblock.rarety.modules.profiles.clazz.Profile;
+import org.bukkit.entity.Player;
 
 public class RaretyCommand extends ICommand {
 
@@ -26,7 +23,12 @@ public class RaretyCommand extends ICommand {
 			player.sendMessage(Utils.color("&cUsage: /items <joueur>"));
 			return;
 		}
-		
+
+		if(args.length() == 1 && !player.hasPermission("rarety.admin")) {
+			player.sendMessage(Utils.color("&cVous n'avez pas la permission de faire cela"));
+			return;
+		}
+
 		if(args.length() == 1 && player.hasPermission("rarety.admin")) {
 			ProfileManager pm = ProfileManager.getInstance();
 			Profile pr = pm.getProfile(args.getArgs(0));
