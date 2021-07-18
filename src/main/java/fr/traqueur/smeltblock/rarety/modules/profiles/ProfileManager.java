@@ -58,15 +58,6 @@ public class ProfileManager extends Saveable {
 		return this.createProfile(profile);
 	}
 
-	public void removeProfile(Player player) {
-		Profile profile = this.getProfile(player.getName());
-		this.profiles.remove(profile);
-	}
-
-	public void removeProfile(Profile profile) {
-		this.profiles.remove(profile);
-	}
-
 	public boolean profileExist(String name) {
 		for (Profile profile : getProfiles()) {
 			if (profile.getName().equalsIgnoreCase(name)) {
@@ -80,11 +71,6 @@ public class ProfileManager extends Saveable {
 		return profiles;
 	}
 
-	public void setProfiles(List<Profile> profiles) {
-		this.profiles = profiles;
-	}
-
-	
 	@Override
 	public File getFile() {
 		return new File(this.getPlugin().getDataFolder(), "/profiles/");
@@ -115,6 +101,7 @@ public class ProfileManager extends Saveable {
 	@Override
 	public void saveData() {
 		for (Profile profile : this.profiles) {
+			profile.save();
 			DiscUtil.writeCatch(profile.getProfileFile(), this.getGson().toJson(profile));
 		}
 	}

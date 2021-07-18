@@ -3,7 +3,10 @@ package fr.traqueur.smeltblock.rarety.modules.profiles.clazz;
 import java.io.File;
 import java.util.List;
 
+import fr.traqueur.smeltblock.rarety.api.utils.InventoryUtils;
+import fr.traqueur.smeltblock.rarety.modules.rarety.IslandRaretyManager;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.google.common.collect.Lists;
@@ -40,31 +43,23 @@ public class Profile {
 	}
 
 	public void saveItem(byte[] map, int slot) {
-		if(!match(map)) {
-			raretyItems.add(map);
-		}	
-	}
-
-	public boolean match(byte[] byt) {
-		for (byte[] b : raretyItems) {
-			if (match(b, byt)) {
-				return true;
+		IslandRaretyManager manager = IslandRaretyManager.getInstance();
+		List<Inventory> invs = manager.getInventories(this);
+		if(invs == null) {
+			return;
+		}
+		for(Inventory inv:  invs) {
+			int firstEmpty = inv.firstEmpty();
+			if(firstEmpty == -1) {
+				continue;
 			}
+			inv.setItem(firstEmpty, ItemStack.deserializeBytes(map));
 		}
-		return false;
+		manager.put(this, invs);
 	}
 
-	private boolean match(byte[] item, byte[] item2) {
-		if (item.length != item2.length)
-			return false;
-		for (int i = 0; i < item2.length; i++) {
-			if (item[i] != item2[i])
-				return false;
-		}
-		return true;
-	}
 
-	public void removeItem(ItemStack current) {
-		raretyItems.remove(current.serializeAsBytes());
+	public void save() {
+		IslandRaretyManager.getInstance().saveItems(this);
 	}
 }
