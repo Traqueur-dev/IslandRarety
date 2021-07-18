@@ -169,6 +169,7 @@ public class IslandRaretyManager extends Saveable {
 
             inventories.add(inv);
         }
+        Bukkit.broadcastMessage("DONE");
         this.inventories.put(profile.getName(), inventories);
     }
 
@@ -194,6 +195,7 @@ public class IslandRaretyManager extends Saveable {
     public void openInv(Player player, Profile profile, int page) {
         pages.put(player, page);
         viewed.put(player, profile);
+        this.setupInv(profile);
         player.openInventory(this.inventories.get(profile.getName()).get(page - 1));
     }
 

@@ -1,8 +1,10 @@
 package fr.traqueur.smeltblock.rarety.modules.rarety;
 
 import fr.traqueur.smeltblock.rarety.api.commands.annotations.Command;
+import fr.traqueur.smeltblock.rarety.api.commands.annotations.Completer;
 import fr.traqueur.smeltblock.rarety.modules.profiles.ProfileManager;
 import fr.traqueur.smeltblock.rarety.modules.profiles.clazz.Profile;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import fr.traqueur.smeltblock.rarety.api.commands.CommandArgs;

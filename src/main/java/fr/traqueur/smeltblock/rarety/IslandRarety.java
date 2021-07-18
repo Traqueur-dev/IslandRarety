@@ -25,11 +25,12 @@ public class IslandRarety extends Plugin {
 		super.onDisable();
 	}
 
+
 	@Override
 	public void registerManagers() {
 		ModuleManager mm = this.getModuleManager();
-		mm.registerPersist(new ProfileManager(this));
 		mm.registerPersist(new IslandRaretyManager(this));
+		mm.registerPersist(new ProfileManager(this));
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class IslandRarety extends Plugin {
 
 			@Override
 			public void run() {
-				IslandRarety.getINSTANCE().savePersists();
+				IslandRarety.getINSTANCE().save();
 
 			}
 		}, 20, 20 * 60 * 30);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.traqueur.smeltblock.rarety.api.Plugin;
 import fr.traqueur.smeltblock.rarety.modules.profiles.clazz.Profile;
+import fr.traqueur.smeltblock.rarety.modules.rarety.IslandRaretyManager;
 import org.bukkit.entity.Player;
 
 import com.google.common.collect.Lists;
