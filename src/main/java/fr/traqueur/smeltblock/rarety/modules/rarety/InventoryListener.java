@@ -65,16 +65,22 @@ public class InventoryListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onClick(InventoryClickEvent event) {
-		if (event.getInventory() == null || event.getClickedInventory() == null)
+		if (event.getClickedInventory() == null)
 			return;
 
 		InventoryView view = event.getView();
 		ItemStack item = event.getCurrentItem();
 		Inventory topInv = view.getTopInventory();
-		Inventory bottomInv = view.getBottomInventory();
 		Player player = (Player) event.getWhoClicked();
-		if (topInv == null || bottomInv == null)
-			return;
+
+		if(topInv.getType() == InventoryType.CRAFTING) {
+			if(event.getSlotType() == InventoryType.SlotType.ARMOR) {
+				if(manager.isRaretyItem(event.getCursor())) {
+					event.setCancelled(true);
+					return;
+				}
+			}
+		}
 
 		if (manager.isRaretyInventory(view)) {
 			if (item == null) {
@@ -97,7 +103,6 @@ public class InventoryListener implements Listener {
 				} else if (name.contains("précédente")) {
 					manager.previousPage(player);
 				}
-				return;
 			}
 		} else {
 
@@ -109,7 +114,6 @@ public class InventoryListener implements Listener {
 			if (topInv.getType() != InventoryType.CRAFTING && manager.isRaretyItem(item)) {
 				event.setCancelled(true);
 			}
-
 		}
 	}
 	
