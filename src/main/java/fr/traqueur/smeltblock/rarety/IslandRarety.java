@@ -6,10 +6,14 @@ import org.bukkit.Bukkit;
 import fr.traqueur.smeltblock.rarety.api.modules.ModuleManager;
 import fr.traqueur.smeltblock.rarety.modules.profiles.ProfileManager;
 import fr.traqueur.smeltblock.rarety.modules.rarety.IslandRaretyManager;
+import xzot1k.plugins.ds.DisplayShops;
+import xzot1k.plugins.ds.DisplayShopsAPI;
 
 public class IslandRarety extends Plugin {
 
 	private static IslandRarety INSTANCE;
+
+	private DisplayShopsAPI displayShopsAPI;
 
 	public IslandRarety() {
 		INSTANCE = this;
@@ -35,18 +39,29 @@ public class IslandRarety extends Plugin {
 
 	@Override
 	public void registerOthers() {
-		Bukkit.getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> IslandRarety.getINSTANCE().save(), 20, 20 * 60 * 30);
 
-			@Override
-			public void run() {
-				IslandRarety.getINSTANCE().save();
+		isDisplayShopsInstalled();
+	}
 
-			}
-		}, 20, 20 * 60 * 30);
+	private boolean isDisplayShopsInstalled()
+	{
+		DisplayShops ds = (DisplayShops) getServer().getPluginManager().getPlugin("DisplayShops");
+
+		if(ds != null)
+		{
+			displayShopsAPI = ds;
+			return true;
+		}
+
+		return false;
 	}
 
 	public static IslandRarety getINSTANCE() {
 		return INSTANCE;
 	}
 
+	public DisplayShopsAPI getDisplayShopsAPI() {
+		return displayShopsAPI;
+	}
 }

@@ -97,7 +97,9 @@ public abstract class Plugin extends JavaPlugin {
 		getFramework().registerCommands(command);
 		LoggerUtils.success("Enregistrement effectuée avec succés.");
 	}
-	
+
+
+
 	public void loadPersists() {
 		for (JsonPersist persist : this.persists) {
 			persist.loadData();

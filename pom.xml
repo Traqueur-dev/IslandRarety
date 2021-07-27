@@ -6,7 +6,7 @@
 
     <groupId>fr.traqueur.smeltblock</groupId>
     <artifactId>rarety</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7</version>
     <packaging>jar</packaging>
 
     <name>IslandRarety</name>
@@ -98,6 +98,13 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${basedir}/libs/SuperiorSkyBlock2-b142.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>xzot1k.plugins.ds</groupId>
+            <artifactId>DisplayShopsAPI</artifactId>
+            <version>latest</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/libs/DisplayShopsAPI.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

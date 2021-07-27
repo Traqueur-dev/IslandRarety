@@ -1,5 +1,6 @@
 package fr.traqueur.smeltblock.rarety.modules.rarety;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ItemFrame;
@@ -70,6 +71,7 @@ public class InventoryListener implements Listener {
 
 		InventoryView view = event.getView();
 		ItemStack item = event.getCurrentItem();
+		ItemStack cursor = event.getCursor();
 		Inventory topInv = view.getTopInventory();
 		Player player = (Player) event.getWhoClicked();
 
@@ -83,19 +85,20 @@ public class InventoryListener implements Listener {
 		}
 
 		if (manager.isRaretyInventory(view)) {
-			if (item == null) {
-				return;
+			if (event.getClick() == ClickType.NUMBER_KEY && (!manager.isRaretyItem(item)
+					|| (!manager.isRaretyItem(player.getInventory().getItem(event.getHotbarButton()))))) {
+				event.setCancelled(true);
 			}
 
-			if (!manager.isRaretyItem(item)) {
+			if (!manager.isRaretyItem(item) && !manager.isRaretyItem(cursor)) {
 				event.setCancelled(true);
+			}
+
+			if(item == null) {
+				return;
 			}
 
 			String name = item.getItemMeta().getDisplayName();
-			if (name.contains("§1")) {
-				event.setCancelled(true);
-				return;
-			}
 			if (name.contains("Page")) {
 				event.setCancelled(true);
 				if (name.contains("suivante")) {
@@ -111,7 +114,7 @@ public class InventoryListener implements Listener {
 				event.setCancelled(true);
 			}
 
-			if (topInv.getType() != InventoryType.CRAFTING && manager.isRaretyItem(item)) {
+			if (topInv.getType() != InventoryType.CRAFTING && (manager.isRaretyItem(item) || manager.isRaretyItem(cursor))) {
 				event.setCancelled(true);
 			}
 		}

@@ -44,6 +44,7 @@ public class IslandRaretyManager extends Saveable {
         this.config = new Config();
         this.registerCommand(new RaretyCommand());
         this.registerListener(new InventoryListener());
+        this.registerListener(new ShopListener());
     }
 
     public static IslandRaretyManager getInstance() {
