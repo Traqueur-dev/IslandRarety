@@ -1,5 +1,6 @@
 package fr.traqueur.smeltblock.rarety.modules.rarety;
 
+import fr.traqueur.smeltblock.rarety.api.utils.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -77,11 +78,12 @@ public class InventoryListener implements Listener {
 
 		if(topInv.getType() == InventoryType.CRAFTING) {
 			if(event.getSlotType() == InventoryType.SlotType.ARMOR) {
-				if(manager.isRaretyItem(event.getCursor())) {
+				if(manager.isRaretyItem(cursor)) {
 					event.setCancelled(true);
 					return;
 				}
 			}
+
 		}
 
 		if (manager.isRaretyInventory(view)) {
@@ -108,6 +110,13 @@ public class InventoryListener implements Listener {
 				}
 			}
 		} else {
+
+
+			if(manager.isRaretyItem(player.getInventory().getHelmet())) {
+				ItemStack helmet = player.getInventory().getHelmet().clone();
+				player.getInventory().setHelmet(null);
+				InventoryUtils.addItem(player, helmet, helmet.getAmount());
+			}
 
 			if (event.getClick() == ClickType.NUMBER_KEY && (manager.isRaretyItem(item)
 					|| (manager.isRaretyItem(player.getInventory().getItem(event.getHotbarButton()))))) {
